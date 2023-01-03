@@ -1,0 +1,40 @@
+p{
+   text-align: center;
+   margin-top: 14%;
+   font-size: larger;
+   line-height: 1.5cm;   
+}
+#qrcode{
+    margin:-15% 32% 0% 43.5%
+    
+ }
+ul{   
+text-align: center;
+justify-content: center;
+ 
+}
+.bold{
+   font-weight: bold;
+}
+.bid{
+   text-align: center;
+   line-height: 1.5cm;
+}
+.nav{
+   
+   text-indent: 1cm;
+   padding:  8px  8px 8px 8px;
+   background-color: rgb(44, 217, 223);
+   word-spacing: 0.5cm;
+   
+}
+#cancel{
+
+   
+ text-align: center;
+  
+}
+a:hover{
+   
+   text-decoration: underline;
+}
