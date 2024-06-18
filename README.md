@@ -9,5 +9,3 @@ How to Run the Project ?
 4. Extract the files and open in the code editor
 5. Run it.
 
-Note : You need to add your own Database for Backend and the project is no longer handled.
-
