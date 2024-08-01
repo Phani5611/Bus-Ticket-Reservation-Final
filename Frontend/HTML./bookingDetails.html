@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking</title>
+    <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="flex items-center justify-center min-h-screen bg-gray-100">
+        <div class="px-8 py-6 mx-4 mt-4 text-left bg-white shadow-lg md:w-1/3 lg:w-1/3 sm:w-1/3">
+            <h3 class="text-2xl font-bold text-center">Booking Details</h3>
+            
+            <!-- Welcome Message -->
+            <br>
+            <p class="text-center">Welcome <b><span id="welcomeMsg"></span></b></p>
+            <br>
+            <!-- Booking ID -->
+            <div class="text-black-500 font-medium text-center" id="idcode">
+                Booking ID: <span id="id"></span>
+            </div>
+            <br>
+            <div class="text-blue-500 font-medium text-center">
+                <p>Please enter the following details</p>
+            </div>
+            <br>
+            <div class="text-xs font-medium text-left">
+                <p>All fields are mandatory *</p>
+            </div>
+            <form id="bookingForm" action="http://localhost:8080/booking" method="post">
+                <!-- Name input -->
+                <div class="mt-4">
+                    <div>
+                        <label class="block" for="name">Name *</label>
+                        <input type="text" placeholder="Name" id="name" name="name"
+                            class="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600" required>
+                    </div>
+                </div>
+
+                <!-- Phone input -->
+                <div class="mt-4">
+                    <div>
+                        <label class="block" for="phone">Phone *</label>
+                        <input type="text" placeholder="Phone" id="phone" name="phone"
+                            class="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600" required>
+                    </div>
+                </div>
+
+                <!-- From input -->
+                <div class="mt-4">
+                    <div>
+                        <label class="block" for="boarding">From *</label>
+                        <select id="boarding" name="boarding" class="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600" required>
+                            <option >Select</option>
+                            <option  >Kothapet</option>
+                            <option >B.N.Reddy</option>
+                            <option >L.B.Nagar</option>
+                            <option >Secunderabad</option>
+                            <option >Dilshuknagar</option>
+                            <option >Malakpet</option>
+                            <option >Sagar Ring Road</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- To input -->
+                <div class="mt-4">
+                    <div>
+                        <label class="block" for="destination">To *</label>
+                        <select id="destination" name="destination" class="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600" required>
+                            <option >Select</option>
+                            <option >Kothapet</option>
+                            <option >B.N.Reddy</option>
+                            <option >L.B.Nagar</option>
+                            <option >Secunderabad</option>
+                            <option >Dilshuknagar</option>
+                            <option >Malakpet</option>
+                            <option >Sagar Ring Road</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Date and Time -->
+                <div class="mt-4">
+                    <label class="block" for="date">Date and Time</label>
+                    <input type="datetime-local" name="dateandtime" id="date" placeholder="Select Date and Time"
+                        class="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600">
+                </div>
+                <br>
+                <p class="font-medium text-center">Total Ticket Fare: <span id="fare" class="text-red-600 font-medium text-center" ></span> Rs/-</p>
+               
+                <div class="flex">
+                    <button type="submit" class="w-full px-6 py-2 mt-4 text-white bg-blue-600 rounded-lg hover:bg-blue-900">Make Payment</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <script src="goToPayment.js"></script>
+</body>
+</html>
