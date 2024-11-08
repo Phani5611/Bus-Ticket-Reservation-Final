@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment</title>
+    <link rel="stylesheet" href="../CSS/Paymentoptions.css">
+</head>
+<body>
+    <div id="nav">
+        <nav><p>Payment Gateway</p></nav>
+    </div>
+ <div class="flex-container">
+    <div class="faredisplay" onload="getFare()">Amount to be paid : <b><span id="fared"></span></b> Rs/-</div>
+    <div class="main-container">  Select Below Payment Option (s)
+        <div class="payopt">
+        <div class="credit"> <button class="Credit-card" onclick="window.location.href='creditCardPayment.html';" >Credit Card</button></div>
+        <div class="Debit" onclick="window.location.href='debitCardPayment.html';"><button class="Debit-card">Debit Card 
+        </div></button>
+        <div class="NetBanking"><button class="NetBanking">Net Banking</button>
+        <div class="UPI" onclick="window.location.href='UPIpayment.html';"><button class="UPI">UPI Payment</button>
+        </div>
+    </div>
+</div>
+</div>
+    <div class="footer">
+        <img src="../Assests/MasterCard_Logo.svg.png" class="MasterCardImg" alt="">
+        <img src="../Assests/Visa.svg.png" class="VisaCardImg" alt="">
+        <img src="../Assests/1200px-UPI-Logo-vector.svg.webp" class="UPIImg" alt="">
+        <img src="../Assests/Paytm.png" class="PaytmImg" alt="">
+        <img src="../Assests/phonepe.png" class="PhonePeImg" alt="">
+    </div> 
+  
+</body>
+</html>

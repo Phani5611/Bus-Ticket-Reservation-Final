@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration</title>
+    <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
+    
+</head>
+<body>
+    <div class="flex items-center justify-center min-h-screen bg-gray-100">
+    <div class="px-8 py-6 mx-4 mt-4 text-left bg-white shadow-lg md:w-1/3 lg:w-1/3 sm:w-1/3">
+        <h3 class="text-2xl font-bold text-center">Join us</h3>
+        <form id="registrationForm"action="http://localhost:8080/registerd" method="post"  > 
+            <!-- Name input -->
+            <div class="mt-4"  >
+                <div>
+                    <label class="block" for="Name" >Name<label>
+                            <input type="text" placeholder="Name" name="name" id="fname"
+                                class="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600" required>
+                </div>
+
+                <!-- Email input -->
+                <div class="mt-4"  >
+                    <label class="block" for="email">Email<label>
+                            <input type="text" placeholder="Email" id="femail" name="email"
+                                class="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600" required>
+                </div>
+
+                 <!-- Username input -->
+                <div class="mt-4"  >
+                <div>
+                    <label class="block" for="Name" >Username<label>
+                            <input type="text" placeholder="Username" name="username" id="fname"
+                                class="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600" required>
+                </div>
+
+                <!-- Password input -->
+                <div class="mt-4" >
+                    <label class="block">Password<label>
+                            <input type="password" placeholder="Password" id="pass" name="password" 
+                                class="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600" required>
+                </div>
+
+                <!-- Confirm  Password Input -->
+                <div class="mt-4"  >
+                    <label class="block">Confirm Password<label>
+                            <input type="password" placeholder="Password" id="cpass" name="cpassword"
+                                class="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600" required>
+                </div>
+                <span class="text-xs text-red-400">Password & Confirm passoword must be same!</span>
+                   
+            </div>
+                <div class="flex">
+                    <button type="submit"  class="w-full px-6 py-2 mt-4 text-white bg-blue-600 rounded-lg hover:bg-blue-900">Submit</button>
+                </div>
+               
+                <div class="mt-6 text-grey-dark">
+                    Already have an account?
+                    <a class="text-blue-600 hover:underline" href="login.html">
+                        Log in
+                    </a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+<script src="../JS/verfication.js" ></script>
+</html>

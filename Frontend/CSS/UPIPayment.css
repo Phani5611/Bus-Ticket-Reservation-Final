@@ -1,0 +1,42 @@
+body, html {
+    margin: 0; /* Remove default margin */
+    padding: 0; /* Remove default padding */
+}
+
+.nav {
+    text-align: center;
+    background-color: rgb(18, 221, 221);
+    margin: 0; /* No margin around the navbar */
+    padding: 0; /* No padding around the navbar */
+    height: 60px; /* Adjust height as needed */
+}
+
+.nav nav {
+    margin: 0; /* Ensure no margin is applied to the <nav> */
+    padding: 0; /* No padding in the <nav> */
+}
+
+nav h4 {
+    color: rgb(0, 0, 0);
+    text-decoration: solid;
+    line-height: 60px; /* Vertically centers the text in the navbar */
+    margin: 0; /* Remove any margin around the h4 */
+}
+
+.container {
+    text-align: center;
+    margin-top: 8%;
+}
+
+.button1 {
+    line-height: 2.5cm;
+}
+
+.button {
+    font-size: medium;
+    line-height: 1cm;
+    padding: 0cm 0.5cm 0cm 0.5cm;
+    background-color: rgb(72, 103, 206);
+    color: white;
+    border-radius: 0.5cm;
+}
