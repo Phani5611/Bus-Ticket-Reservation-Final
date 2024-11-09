@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ServiceDebitCard {
@@ -16,13 +17,11 @@ public class ServiceDebitCard {
     @Autowired
     private DebitCardDetails dcdetails;
 
-    public List<DebitCardDetails> getDebitCardDetails() {
-
-        return repo.findAll();
+    public Optional<DebitCardDetails> getDebitCardDetails(long bookingId) {
+       return repo.findById(bookingId);
     }
 
     public DebitCardDetails setDebitCardDetails(DebitCardDetails dcdetails){
-
         repo.save(dcdetails);
         return dcdetails;
     }

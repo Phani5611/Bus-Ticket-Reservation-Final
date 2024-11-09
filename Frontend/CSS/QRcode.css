@@ -1,15 +1,16 @@
 p{
    text-align: center;
- 
    font-size: larger;
    line-height: 1.5cm; 
 
 }
-#QR {
+
+#QR{
    display: flex;              /* Use Flexbox */
    align-items: center;        /* Vertically center the content */
    justify-content: center;    /* Horizontally center the content */
-   height: 100px;              /* Set a height if needed for alignment */
+   height: auto;
+   padding-top: 10px;            /* Set a height if needed for alignment */
 }
 ul{   
 text-align: center;

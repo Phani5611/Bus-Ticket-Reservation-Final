@@ -5,6 +5,9 @@ import com.Bus_Reservation_Nov24.Bus.Reservation.Backend.Dev.Nov24.Model.CreditC
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
-public interface CreditCardRepo extends JpaRepository<CreditCardDetails,Integer> {
+public interface CreditCardRepo extends JpaRepository<CreditCardDetails,Long> {
+
 }

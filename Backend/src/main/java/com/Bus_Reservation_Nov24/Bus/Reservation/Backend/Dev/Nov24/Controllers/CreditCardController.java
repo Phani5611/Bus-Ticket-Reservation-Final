@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
+
 @CrossOrigin(origins = "http://127.0.0.1:5500")
 @RestController
 public class CreditCardController {
@@ -22,14 +24,13 @@ public class CreditCardController {
     @Autowired
     private BookingDetails details;
 
-    @GetMapping("creditcardpayment")
-    public List<CreditCardDetails> getCreditCardDetails(){
-
-        return service.getCreditCardDetails();
+    @GetMapping("creditcardpayment/{bookingId}")
+    public Optional<CreditCardDetails> getCreditCardDetails(@PathVariable long bookingId){
+        return service.getCreditCardDetails(bookingId);
     }
 
     @PostMapping("creditcardpayment")
-    public CreditCardDetails setCreditCardDetails(@RequestBody CreditCardDetails ccdetails) {
+    public CreditCardDetails setCreditCardDetails( @RequestBody CreditCardDetails ccdetails) {
         CreditCardDetails savedCardDetails = service.setCreditCardDetails(ccdetails);
         System.out.println("Credit Card Details Saved Successfully");
         return savedCardDetails;

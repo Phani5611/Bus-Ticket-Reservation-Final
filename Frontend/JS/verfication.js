@@ -1,6 +1,7 @@
+// Function to validate form before submission
 function validateForm() {
-    var password = document.getElementById("pass").value;
-    var confirm_password = document.getElementById("cpass").value;
+    var password = document.getElementById("pass").value.trim();  // Trim whitespace
+    var confirm_password = document.getElementById("cpass").value.trim();
 
     // Check if the password length is less than 8 characters
     if (password.length < 8) {
@@ -14,15 +15,21 @@ function validateForm() {
         return false; 
     }
 
+    // Optional: Add a password strength check using regex
+    var passwordStrengthRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+    if (!passwordStrengthRegex.test(password)) {
+        alert("Password must contain at least one letter, one number, and one special character.");
+        return false;
+    }
+
     return true; 
 }
 
 // Form Submission -> DB
 document.getElementById('registrationForm').addEventListener('submit', function(event) {
-    
     if (!validateForm()) {
-        event.preventDefault(); 
-        return; // Exit the function to stop form submission
+        event.preventDefault();  // Prevent form submission if validation fails
+        return "Enter Details correctly"; 
     }
 
     // If form is valid, continue with form submission via fetch
@@ -43,14 +50,24 @@ document.getElementById('registrationForm').addEventListener('submit', function(
         },
         body: jsonData
     })
-     .then(response => response.json()) // Parse JSON response
-            .then(data => {
-                if (data.message) {
-                    alert(data.message); // Display the message from the server in an alert box
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                alert('An error occurred. Please try again.'); // Display a general error message in an alert box
-            });
-        });
+    .then(response => {
+        // Check if response is successful (status code 2xx)
+        if (!response.ok) {
+            throw new Error('Server error: ' + response.statusText);
+        }
+        return response.json(); // Parse JSON response
+    })
+    .then(data => {
+        if (data.message) {
+            // Display the message from the server in an alert box
+           // alert(data.message);
+            
+            // Redirect to "Registration Successful" page
+            window.location.href = "RegThankyou.html";  // Replace with your actual success page URL
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('An error occurred. Please try again.'); // Display a general error message in an alert box
+    });
+});

@@ -1,27 +1,42 @@
-function qrgenerate(){
 
-	// Getting the data from the local storage
-	
-var QRname = localStorage.getItem('NAME')
-	var QRphone =localStorage.getItem('PHONE')
-	var QRfrom =localStorage.getItem('FROM')
-	var QRto =localStorage.getItem('TO')
-    var QRdate =localStorage.getItem('DATE')
-   
- console.log(QRname+QRphone+QRfrom+QRto+QRdate+bookingId)
-var url = "https://chart.googleapis.com/chart?cht=qr&chs=200x200&chl=Name :"+ QRname + " " +"%0aPhone :" +QRphone+" "+"%0aFrom : "+QRfrom+" "+"%0aTo :"+ QRto +" "+"%0aDate And Time :"+QRdate +" "+ "%0aBooking ID :"+bookingId;
+//Searching in url for Booking ID
+const urlParams = new URLSearchParams(window.location.search);
+const bookingId = urlParams.get('bookingId');
 
-var ifr = `<iframe src="${url}" height="200" width="200"></iframe>`;
 
-    document.getElementById('qrcode').innerHTML = ifr;
+
+function fetchBookingId() {
+    // Example booking ID for testing, replace with actual ID if dynamic
+
+   // Fetch booking details from the backend (replace with the correct endpoint)
+   fetch(`http://localhost:8080/booking/${bookingId}`)
+       .then(response => {
+           if (!response.ok) {
+               throw new Error("Booking not found");
+           }
+           return response.json();  // Parse the response as JSON
+       })
+       .then(data => {
+           console.log("Fetched booking data:", data);  // Debugging line to see the response
+
+           // Make sure the bookingId exists in the response
+           if (data.bookingId) {
+               // Display the booking ID in the frontend
+               document.getElementById('idcode').innerText = data.bookingId;
+              // Generate the QR code dynamically with the entire data object (encoded as JSON)
+              const qrImage = document.getElementById('qrImage');
+              const jsonString = JSON.stringify(data);  // Convert the data to a JSON string
+              qrImage.src = `https://api.qrserver.com/v1/create-qr-code/?data=${encodeURIComponent(jsonString)}&size=200x200`;
+          } else {
+              console.error("Booking ID not found in the response.");
+              document.getElementById('idcode').innerText = "Booking ID not found.";
+          }
+       })
+       .catch(error => {
+           console.error('Error fetching booking details:', error);
+           document.getElementById('idcode').innerText = "Error fetching booking details.";
+       });
 }
-function cancellation(){
-   let a = confirm("Are you sure to cancel the ticket ?")
-   if(a==true){
-	return window.location.href='cancel.html';
-   }
-   else{
-	return false;
-   }
-	
-}
+
+// Call fetchBookingId when the page loads
+window.onload = fetchBookingId;

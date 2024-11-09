@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
 @AllArgsConstructor
 @Component
 @Table(name="passenger_details")
-public class Passenger {
+public class User {
     @Id
     private String username;
     private String name;

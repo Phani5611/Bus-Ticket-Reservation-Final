@@ -1,28 +1,37 @@
-document.getElementById('debitCardPaymentDetails').addEventListener('submit', function(event) {
+document.getElementById('FormCreditCardDetails').addEventListener('submit', function(event) {
     event.preventDefault(); // Prevent the default form submission
-
+    
     // Extract the bookingId from the URL (query string)
     const urlParams = new URLSearchParams(window.location.search);
     const bookingId = urlParams.get('bookingId');
 
-    // Create a FormData object from the form
+    // Create the form data object
     var formData = new FormData(this);
-      // If bookingId is found, add it to the formData object
+    
+    // If bookingId is found, add it to the formData object
     if (bookingId) {
+         
         formData.append('bookingId', bookingId);
-        
+            // Get the credit card button and add an event listener for the click
+    document.getElementById('confirm').addEventListener('click', function() {
+        // Redirect to the credit card payment page with the bookingId as a query parameter
+        window.location.href = `QRcode.html?bookingId=${bookingId}`;
+    });
+      
     }
-    // Convert FormData to a plain object
+
+
+    // Convert formData to a plain JavaScript object
     var dataObject = {};
     formData.forEach(function(value, key) {
         dataObject[key] = value;
     });
 
-    // Convert the plain object to JSON
+    // Convert the JavaScript object to JSON
     var jsonData = JSON.stringify(dataObject);
 
-    // Perform the fetch request
-    fetch('http://localhost:8080/debitcardpayment', {
+    // Send the data to the backend
+    fetch('http://localhost:8080/creditcardpayment', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -33,7 +42,7 @@ document.getElementById('debitCardPaymentDetails').addEventListener('submit', fu
     .then(data => {
         console.log('Success:', data);
         // Redirect to success page
-        window.location.href = 'QRcode.html';
+       // window.location.href = 'QRcode.html';
     })
     .catch((error) => {
         console.error('Error:', error);

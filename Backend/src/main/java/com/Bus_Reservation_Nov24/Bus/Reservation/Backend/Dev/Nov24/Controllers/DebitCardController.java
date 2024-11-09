@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
+
 @CrossOrigin(origins = "http://127.0.0.1:5500")
 @RestController
 public class DebitCardController {
@@ -15,10 +17,9 @@ public class DebitCardController {
         @Autowired
         private ServiceDebitCard service;
 
-        @GetMapping("debitcardpayment")
-        public List<DebitCardDetails> getDebitCardDetails(){
-            
-            return service.getDebitCardDetails();
+        @GetMapping("debitcardpayment/{bookingId}")
+        public Optional<DebitCardDetails> getDebitCardDetails(@PathVariable long bookingId){
+            return service.getDebitCardDetails(bookingId);
         }
 
         @PostMapping("debitcardpayment")

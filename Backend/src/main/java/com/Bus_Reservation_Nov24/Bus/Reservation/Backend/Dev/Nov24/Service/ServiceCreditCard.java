@@ -5,7 +5,7 @@ import com.Bus_Reservation_Nov24.Bus.Reservation.Backend.Dev.Nov24.Repository.Cr
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ServiceCreditCard {
@@ -14,13 +14,11 @@ public class ServiceCreditCard {
     private CreditCardRepo repo;
 
 
-    public List<CreditCardDetails> getCreditCardDetails() {
-
-        return repo.findAll();
+    public Optional<CreditCardDetails> getCreditCardDetails(long bookingId) {
+       return repo.findById(bookingId);
     }
 
     public CreditCardDetails setCreditCardDetails(CreditCardDetails ccdetails) {
-
          repo.save(ccdetails);
          return  ccdetails;
     }

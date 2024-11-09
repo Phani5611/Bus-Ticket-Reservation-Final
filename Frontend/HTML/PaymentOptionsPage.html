@@ -15,9 +15,8 @@
     <div class="faredisplay" onload="getFare()">Amount to be paid : <b><span id="fared"></span></b> Rs/-</div>
     <div class="main-container">  Select Below Payment Option (s)
         <div class="payopt">
-        <div class="credit"> <button class="Credit-card" onclick="window.location.href='creditCardPayment.html';" >Credit Card</button></div>
-        <div class="Debit" onclick="window.location.href='debitCardPayment.html';"><button class="Debit-card">Debit Card 
-        </div></button>
+        <div class="credit" id="creditCardButton"> <button class="Credit-card" >Credit Card</button></div>
+        <div class="debit" id="debitCardButton"><button class="Debit-card">Debit Card </button></div>
         <div class="NetBanking"><button class="NetBanking">Net Banking</button>
         <div class="UPI" onclick="window.location.href='UPIpayment.html';"><button class="UPI">UPI Payment</button>
         </div>
@@ -31,6 +30,6 @@
         <img src="../Assests/Paytm.png" class="PaytmImg" alt="">
         <img src="../Assests/phonepe.png" class="PhonePeImg" alt="">
     </div> 
-  
+  <script src = "../JS/paymentoptions.js"></script>
 </body>
 </html>

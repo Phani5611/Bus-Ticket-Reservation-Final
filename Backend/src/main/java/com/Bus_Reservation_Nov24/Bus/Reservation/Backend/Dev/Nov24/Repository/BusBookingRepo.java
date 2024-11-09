@@ -7,5 +7,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 
-public interface BusBookingRepo extends JpaRepository<BookingDetails,String> {
+public interface BusBookingRepo extends JpaRepository<BookingDetails,Long> {
 }

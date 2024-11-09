@@ -3,9 +3,8 @@ package com.Bus_Reservation_Nov24.Bus.Reservation.Backend.Dev.Nov24.Controllers;
 import com.Bus_Reservation_Nov24.Bus.Reservation.Backend.Dev.Nov24.Model.BookingDetails;
 import com.Bus_Reservation_Nov24.Bus.Reservation.Backend.Dev.Nov24.Service.ServiceBooking;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "http://127.0.0.1:5500")
@@ -17,9 +16,9 @@ public class BusBookingController {
     public String greet(){
         return "Hi!";
     }
-    @GetMapping("/booking")
-    public List<BookingDetails> getBookingDetails() {
-        return service.getBookingDetails();
+    @GetMapping("/booking/{bookingId}")
+    public ResponseEntity<BookingDetails> getBookingDetails(@PathVariable long bookingId) {
+       return service.getBookingDetails(bookingId);
     }
 
     //@RequestBody helps in getting form data from front-end in JSON format

@@ -18,6 +18,8 @@ import org.springframework.stereotype.Component;
 public class CreditCardDetails {
 
     @Id
+    //Get hold of the booking id from url
+    private long bookingId;
     private long card_number;
     private int exp_date;
     private int cvv;
