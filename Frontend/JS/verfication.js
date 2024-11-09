@@ -51,23 +51,27 @@ document.getElementById('registrationForm').addEventListener('submit', function(
         body: jsonData
     })
     .then(response => {
-        // Check if response is successful (status code 2xx)
+        // Check if response is successful 
         if (!response.ok) {
             throw new Error('Server error: ' + response.statusText);
         }
         return response.json(); // Parse JSON response
     })
     .then(data => {
-        if (data.message) {
+        if (data) {
             // Display the message from the server in an alert box
            // alert(data.message);
             
             // Redirect to "Registration Successful" page
-            window.location.href = "RegThankyou.html";  // Replace with your actual success page URL
+            document.getElementById('submitButton').addEventListener('click', function() {
+               
+                window.location.href = "http://127.0.0.1:5500/HTML/RegThankyou.html";
+            });
+              
         }
     })
     .catch(error => {
-        console.error('Error:', error);
+        console.error('Error: Registration Not Successful', error);
         alert('An error occurred. Please try again.'); // Display a general error message in an alert box
     });
 });

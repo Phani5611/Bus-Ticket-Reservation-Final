@@ -37,6 +37,8 @@ function fetchBookingId() {
            document.getElementById('idcode').innerText = "Error fetching booking details.";
        });
 }
-
+function cancellation(){
+    window.location.href="cancel.html";
+}
 // Call fetchBookingId when the page loads
 window.onload = fetchBookingId;
