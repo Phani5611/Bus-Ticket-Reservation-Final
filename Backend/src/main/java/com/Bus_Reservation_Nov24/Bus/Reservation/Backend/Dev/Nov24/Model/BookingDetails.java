@@ -18,7 +18,12 @@ public class BookingDetails {
     private int bookingId;
     private String name;
     private long phone;
+    @Column(name = "boarding_code")
+    private int boarding_code;
     private String boarding;
+    @Column(name = "destination_code")
+    private int destination_code;
     private String destination;
     private String dateandtime;
+    private int fare;
 }

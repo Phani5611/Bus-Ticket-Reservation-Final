@@ -1,39 +1,48 @@
-// This is your form submission handler
 document.getElementById('bookingForm').addEventListener('submit', function(event) {
-    event.preventDefault(); // Prevent the form from submitting normally
+    event.preventDefault(); 
+
+    // Get selected option from the boarding dropdown
+    const boardingSelect = document.getElementById('boarding');
+    const boardingOption = boardingSelect.options[boardingSelect.selectedIndex];  
+
+    // Get selected option from the destination dropdown
+    const destinationSelect = document.getElementById('destination');
+    const destinationOption = destinationSelect.options[destinationSelect.selectedIndex];
 
     // Create an object to hold the form data
     const formData = {
         name: document.getElementById('name').value,
         phone: document.getElementById('phone').value,
-        boarding: document.getElementById('boarding').value,
-        destination: document.getElementById('destination').value,
-        dateandtime: document.getElementById('date').value
+        boarding_code: boardingSelect.value,  // The value of the selected boarding option
+        boarding: boardingOption.text,       // The text of the selected boarding option
+        destination_code: destinationSelect.value, // The value of the selected destination option
+        destination: destinationOption.text,  // The text of the selected destination option
+        dateandtime: document.getElementById('date').value,
     };
 
-    // Send the data to your Spring Boot backend
+  
     fetch('http://localhost:8080/booking', {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/json' // Set content type to JSON
+            'Content-Type': 'application/json'
         },
-        body: JSON.stringify(formData) // Convert the form data to JSON
+        body: JSON.stringify(formData)
     })
-    .then(response => response.json()) // Assuming your backend returns JSON
+    .then(response => {
+        return response.json(); // Parse the response as JSON
+    })
     .then(data => {
-          
-          // Redirect to the payment page with the bookingId
-
-          // Get the bookingId from the response
-        const bookingId = data.bookingId; 
-
-        // Redirect to payment page with bookingId
-        if(data.success){
-            
+        console.log('Backend Response:', data); 
+    
+        if (data) {
+            const bookingId = data.bookingId;  
+            console.log('Booking ID:', bookingId); 
+            window.location.href = `PaymentOptionsPage.html?bookingId=${bookingId}`;
+        } else {
+            console.error('Booking failed:', data);
         }
-       window.location.href = `http://127.0.0.1:5500/HTML/PaymentOptionsPage.html?bookingId=${bookingId}`;
     })
     .catch(error => {
         console.error('Error:', error);
     });
-});
+});    

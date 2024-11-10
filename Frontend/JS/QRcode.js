@@ -1,11 +1,8 @@
 
-//Searching in url for Booking ID
+
 const urlParams = new URLSearchParams(window.location.search);
 const bookingId = urlParams.get('bookingId');
 function fetchBookingId() {
-    // Example booking ID for testing, replace with actual ID if dynamic
-
-   // Fetch booking details from the backend (replace with the correct endpoint)
    fetch(`http://localhost:8080/booking/${bookingId}`)
        .then(response => {
            if (!response.ok) {
@@ -22,7 +19,7 @@ function fetchBookingId() {
                document.getElementById('idcode').innerText = data.bookingId;
               // Generate the QR code dynamically with the entire data object (encoded as JSON)
               const qrImage = document.getElementById('qrImage');
-              const jsonString = JSON.stringify(data);  // Convert the data to a JSON string
+              const jsonString = JSON.stringify(data);  
               qrImage.src = `https://api.qrserver.com/v1/create-qr-code/?data=${encodeURIComponent(jsonString)}&size=200x200`;
           }   
           else {

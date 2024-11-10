@@ -9,6 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -18,7 +20,10 @@ public class ServiceBooking {
     @Autowired
     private BusBookingRepo BookingDetailsRepo;
 
+
+
     public BookingDetails setBookingDetails(BookingDetails details) {
+         details.setFare(Math.abs(details.getBoarding_code()-details.getDestination_code()) * 10);
         BookingDetailsRepo.save(details);
         return details;
     }

@@ -26,7 +26,7 @@ function validateForm() {
 }
 // Form Submission -> DB
 document.getElementById('registrationForm').addEventListener('submit', function(event) {
-    event.preventDefault(); // Prevent form submission to handle with fetch
+    event.preventDefault(); 
 
     if (!validateForm()) {
         return; // Exit if form is not valid
@@ -51,14 +51,14 @@ document.getElementById('registrationForm').addEventListener('submit', function(
         body: jsonData
     })
     .then(response => {
-        console.log('Response Status:', response.status); // Log response status
+        console.log('Response Status:', response.status); 
 
         // Check if the response status is 201 (Created)
         if (response.status === 201) {
             // If successful, redirect to the "Registration Successful" page
             window.location.href = "http://127.0.0.1:5500/HTML/RegThankyou.html";
         }
-        // If registration failed due to some client-side error (e.g., bad data)
+        // If registration failed due to some client-side error 
         else if (response.status === 400) {
             alert('Registration failed: Invalid data provided.');
         }
@@ -69,14 +69,14 @@ document.getElementById('registrationForm').addEventListener('submit', function(
         else if (response.status >= 500 && response.status < 600) {
             alert('Server error. Please try again later.');
         }
-        // Handle other errors (e.g., unauthorized, forbidden, etc.)
+        // Handle other errors 
         else {
             alert('Unexpected error: ' + response.statusText);
         }
     })
     .catch(error => {
         console.error('Error:', error);
-        alert('An error occurred: ' + error.message); // Display a general error message
+        alert('An error occurred: ' + error.message); 
     });
 });
 
