@@ -12,6 +12,7 @@ public class BusBookingController {
 
     @Autowired
     private ServiceBooking service;
+
     @GetMapping("/greet")
     public String greet(){
         return "Hi!";

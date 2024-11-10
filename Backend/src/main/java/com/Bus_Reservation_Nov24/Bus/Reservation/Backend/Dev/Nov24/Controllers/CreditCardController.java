@@ -5,6 +5,7 @@ import com.Bus_Reservation_Nov24.Bus.Reservation.Backend.Dev.Nov24.Model.Booking
 import com.Bus_Reservation_Nov24.Bus.Reservation.Backend.Dev.Nov24.Model.CreditCardDetails;
 import com.Bus_Reservation_Nov24.Bus.Reservation.Backend.Dev.Nov24.Service.ServiceCreditCard;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -30,8 +31,8 @@ public class CreditCardController {
     }
 
     @PostMapping("/creditcardpayment")
-    public CreditCardDetails setCreditCardDetails( @RequestBody CreditCardDetails ccdetails) {
-        CreditCardDetails savedCardDetails = service.setCreditCardDetails(ccdetails);
+    public ResponseEntity<Void> setCreditCardDetails(@RequestBody CreditCardDetails ccdetails) {
+        ResponseEntity<Void> savedCardDetails = service.setCreditCardDetails(ccdetails);
         System.out.println("Credit Card Details Saved Successfully");
         return savedCardDetails;
     }

@@ -24,13 +24,12 @@ function validateForm() {
 
     return true; 
 }
-
 // Form Submission -> DB
 document.getElementById('registrationForm').addEventListener('submit', function(event) {
     event.preventDefault(); // Prevent form submission to handle with fetch
 
     if (!validateForm()) {
-        return "Enter Details correctly"; 
+        return; // Exit if form is not valid
     }
 
     // If form is valid, continue with form submission via fetch
@@ -53,22 +52,31 @@ document.getElementById('registrationForm').addEventListener('submit', function(
     })
     .then(response => {
         console.log('Response Status:', response.status); // Log response status
-        return response.json(); // Parse JSON response
-    })
-    .then(data => {
-        console.log('API Response:', data);  // Log the API response to see if it contains success information
-        
-        // Check if the response contains a 'success' key and if it's true
-        if (data) {
+
+        // Check if the response status is 201 (Created)
+        if (response.status === 201) {
             // If successful, redirect to the "Registration Successful" page
             window.location.href = "http://127.0.0.1:5500/HTML/RegThankyou.html";
-        } else {
-            // Display the message from the server
-            alert('Registration failed: ' + (data.message));
+        }
+        // If registration failed due to some client-side error (e.g., bad data)
+        else if (response.status === 400) {
+            alert('Registration failed: Invalid data provided.');
+        }
+        else if(response.status===409){
+            alert("user already exsist.")
+        }
+        // If server error occurred
+        else if (response.status >= 500 && response.status < 600) {
+            alert('Server error. Please try again later.');
+        }
+        // Handle other errors (e.g., unauthorized, forbidden, etc.)
+        else {
+            alert('Unexpected error: ' + response.statusText);
         }
     })
     .catch(error => {
-        console.error('Error: Registration Not Successful', error);
-        alert('An error occurred. Please try again.'); // Display a general error message in an alert box
+        console.error('Error:', error);
+        alert('An error occurred: ' + error.message); // Display a general error message
     });
 });
+

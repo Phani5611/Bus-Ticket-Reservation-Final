@@ -1,8 +1,11 @@
 package com.Bus_Reservation_Nov24.Bus.Reservation.Backend.Dev.Nov24.Service;
 
+import com.Bus_Reservation_Nov24.Bus.Reservation.Backend.Dev.Nov24.Model.CreditCardDetails;
 import com.Bus_Reservation_Nov24.Bus.Reservation.Backend.Dev.Nov24.Model.DebitCardDetails;
 import com.Bus_Reservation_Nov24.Bus.Reservation.Backend.Dev.Nov24.Repository.DebitCardRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -21,8 +24,10 @@ public class ServiceDebitCard {
        return repo.findById(bookingId);
     }
 
-    public DebitCardDetails setDebitCardDetails(DebitCardDetails dcdetails){
+    public ResponseEntity<Void> setDebitCardDetails(DebitCardDetails dcdetails) {
+        dcdetails.setCard_number(dcdetails.getCard_number());
+        dcdetails.setCvv(dcdetails.getCvv());
         repo.save(dcdetails);
-        return dcdetails;
+        return ResponseEntity.status(HttpStatus.ACCEPTED).build();
     }
 }

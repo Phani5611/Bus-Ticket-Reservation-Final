@@ -35,4 +35,19 @@ public class ServiceBooking {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
     }
+
+
+    public ResponseEntity<Void> cancelTicket(long bookingId) {
+        try{
+            if(BookingDetailsRepo.findById(bookingId).isPresent()){
+                BookingDetailsRepo.deleteById(bookingId);
+                System.out.println("Booking Deleted");
+            }
+        }
+        catch (Exception e){
+            System.out.println("Exception in deleteing the booking details in service layer"+e);
+        }
+        return  ResponseEntity.status(HttpStatus.OK).build();
+
+    }
 }

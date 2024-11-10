@@ -4,7 +4,11 @@ package com.Bus_Reservation_Nov24.Bus.Reservation.Backend.Dev.Nov24.Controllers;
 
 import com.Bus_Reservation_Nov24.Bus.Reservation.Backend.Dev.Nov24.Model.Users;
 import com.Bus_Reservation_Nov24.Bus.Reservation.Backend.Dev.Nov24.Service.ServiceRegister;
+import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -26,10 +30,14 @@ public class UserRegistrationController {
 
     //Registers / Save's the unique data
     @PostMapping("register")
-    public Users register(@RequestBody Users user){
-        Users savedUserDetails = service.setUserDetails(user);
-        System.out.println("Passenger Detials Saved Successfully");
-        return savedUserDetails;
+    public ResponseEntity<Void> register(@RequestBody Users user){
+
+           ResponseEntity<Void> response = service.setUserDetails(user);
+            System.out.println("User creation successfull.");
+            return response;
+
+
+
 }
 
 }

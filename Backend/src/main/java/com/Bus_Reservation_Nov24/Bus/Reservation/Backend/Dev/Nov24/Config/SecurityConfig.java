@@ -12,7 +12,9 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.cors.CorsConfiguration;
@@ -32,13 +34,19 @@ public class SecurityConfig {
     @Autowired
     MyUserDetailsService userDetailsService;
 
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder(12);  // Strength of the hash (12 is recommended)
+    }
+
+
     //We are customizing the secuirty flow by breaking the default filter chain and implementing our owun logic
     //HTTPSecurity returns the object of SecurityFilterChain
 
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http.cors().and().authorizeHttpRequests().requestMatchers("/login","/booking","/booking/{bookingId}","/register","/creditcardpayment","/debitcardpayment","creditcardpayment/{bookingId}","/css/**", "/js/**").permitAll().anyRequest().authenticated();
+        http.cors().and().authorizeHttpRequests().requestMatchers("/login","/booking","/booking/{bookingId}","/register","/creditcardpayment","/debitcardpayment","creditcardpayment/{bookingId}","cancel/{bookingId}","/css/**", "/js/**").permitAll().anyRequest().authenticated();
         //http.formLogin().loginPage("/login").loginProcessingUrl("/login").defaultSuccessUrl("/home",true);
         //http.sessionManagement(session->session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
         http.formLogin().disable();
@@ -75,7 +83,7 @@ public class SecurityConfig {
         @Bean
         public AuthenticationProvider authenticationProvider() {
             DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
-            authenticationProvider.setPasswordEncoder(/*No Passworder encoder, just plain text as of now */ NoOpPasswordEncoder.getInstance());
+            authenticationProvider.setPasswordEncoder(passwordEncoder());
             authenticationProvider.setUserDetailsService(userDetailsService);
             return authenticationProvider;
         }
