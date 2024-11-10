@@ -8,6 +8,6 @@ Highlights of the project :
 1. Only unique users are registered in the database.
 2. Can't access the booking features without login credentials due to Spring Security feature.
 3. Passwords are encrpyted using B-Crypt Library strength 12 rounds.
-4. Can handle all the CRUD operation features i.e Register,book, get ticket details, cancel the ticket details.
-5. Bus fare is calculated dynamically by using per km distance price.
+4. Can handle all the CRUD operation features i.e Register,book, get ticket details, cancel the ticket .
+5. Bus fare is calculated dynamically by using per KM distance price.
 6. Accepts cross-origin HTTP requests.
