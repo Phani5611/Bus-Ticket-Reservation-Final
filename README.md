@@ -1,4 +1,4 @@
-1. Designed an online E-Ticket system where users can book the tickets and ticket is provided in the form of QR Ciode.
+1. Designed an online E-Ticket system where users can book the tickets and ticket is provided in the form of QR Code.
 2. Built the front-end interface using HTML, CSS, Javascript and Tailwind CSS while the back-end API which handles all the HTTP request is built using Java and Spring Boot Framework.
 3. To store the data - PostgreSQL.
 
