@@ -13,10 +13,7 @@ document.getElementById('FormCreditCardDetails').addEventListener('submit', func
          
         formData.append('bookingId', bookingId);
             // Get the credit card button and add an event listener for the click
-    document.getElementById('confirm').addEventListener('click', function() {
-        // Redirect to the credit card payment page with the bookingId as a query parameter
-        window.location.href = `QRcode.html?bookingId=${bookingId}`;
-    });
+   
       
     }
 
@@ -40,9 +37,16 @@ document.getElementById('FormCreditCardDetails').addEventListener('submit', func
     })
     .then(response => response.text()) // Assume server returns plain text
     .then(data => {
+        if(data){
+            document.getElementById('confirm').addEventListener('click', function() {
+                // Redirect to the credit card payment page with the bookingId as a query parameter
+                window.location.href = `QRcode.html?bookingId=${bookingId}`;
+            });
+        }
         console.log('Success:', data);
         // Redirect to success page
        // window.location.href = 'QRcode.html';
+       
     })
     .catch((error) => {
         console.error('Error:', error);

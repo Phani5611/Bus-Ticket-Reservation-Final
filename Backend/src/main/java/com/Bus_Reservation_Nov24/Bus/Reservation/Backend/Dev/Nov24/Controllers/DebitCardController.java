@@ -17,12 +17,12 @@ public class DebitCardController {
         @Autowired
         private ServiceDebitCard service;
 
-        @GetMapping("debitcardpayment/{bookingId}")
+        @GetMapping("/debitcardpayment/{bookingId}")
         public Optional<DebitCardDetails> getDebitCardDetails(@PathVariable long bookingId){
             return service.getDebitCardDetails(bookingId);
         }
 
-        @PostMapping("debitcardpayment")
+        @PostMapping("/debitcardpayment")
         public DebitCardDetails setDebitCardDetails(@RequestBody DebitCardDetails dcdetails){
           DebitCardDetails savedDebitCardDetails =  service.setDebitCardDetails(dcdetails);
             System.out.println("Debit Card Details Saved Successfully");

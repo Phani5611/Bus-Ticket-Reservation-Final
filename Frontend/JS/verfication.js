@@ -27,8 +27,9 @@ function validateForm() {
 
 // Form Submission -> DB
 document.getElementById('registrationForm').addEventListener('submit', function(event) {
+    event.preventDefault(); // Prevent form submission to handle with fetch
+
     if (!validateForm()) {
-        event.preventDefault();  // Prevent form submission if validation fails
         return "Enter Details correctly"; 
     }
 
@@ -51,23 +52,19 @@ document.getElementById('registrationForm').addEventListener('submit', function(
         body: jsonData
     })
     .then(response => {
-        // Check if response is successful 
-        if (!response.ok) {
-            throw new Error('Server error: ' + response.statusText);
-        }
+        console.log('Response Status:', response.status); // Log response status
         return response.json(); // Parse JSON response
     })
     .then(data => {
+        console.log('API Response:', data);  // Log the API response to see if it contains success information
+        
+        // Check if the response contains a 'success' key and if it's true
         if (data) {
-            // Display the message from the server in an alert box
-           // alert(data.message);
-            
-            // Redirect to "Registration Successful" page
-            document.getElementById('submitButton').addEventListener('click', function() {
-               
-                window.location.href = "http://127.0.0.1:5500/HTML/RegThankyou.html";
-            });
-              
+            // If successful, redirect to the "Registration Successful" page
+            window.location.href = "http://127.0.0.1:5500/HTML/RegThankyou.html";
+        } else {
+            // Display the message from the server
+            alert('Registration failed: ' + (data.message));
         }
     })
     .catch(error => {

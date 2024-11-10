@@ -21,16 +21,16 @@ document.getElementById('bookingForm').addEventListener('submit', function(event
     })
     .then(response => response.json()) // Assuming your backend returns JSON
     .then(data => {
-        console.log('Booking Details Saved Successfully', data);
-        // Optionally, you can display a success message or redirect the user
-
-
+          
           // Redirect to the payment page with the bookingId
 
           // Get the bookingId from the response
         const bookingId = data.bookingId; 
 
         // Redirect to payment page with bookingId
+        if(data.success){
+            
+        }
        window.location.href = `http://127.0.0.1:5500/HTML/PaymentOptionsPage.html?bookingId=${bookingId}`;
     })
     .catch(error => {

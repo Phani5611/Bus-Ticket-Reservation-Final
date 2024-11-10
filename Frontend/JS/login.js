@@ -28,7 +28,7 @@ document.getElementById('loginForm').addEventListener('submit', function(e) {
         return response.json();  // Parse the JSON response if successful
     })
     .then(data => {
-        if (data.success) {
+        if (data) {
             // Successful login, redirect to the next page
             window.location.href = 'bookingDetails.html';
         } else {

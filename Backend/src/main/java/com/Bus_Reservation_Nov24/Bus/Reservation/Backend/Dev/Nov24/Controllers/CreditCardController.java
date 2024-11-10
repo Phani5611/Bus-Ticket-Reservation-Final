@@ -24,12 +24,12 @@ public class CreditCardController {
     @Autowired
     private BookingDetails details;
 
-    @GetMapping("creditcardpayment/{bookingId}")
+    @GetMapping("/creditcardpayment/{bookingId}")
     public Optional<CreditCardDetails> getCreditCardDetails(@PathVariable long bookingId){
         return service.getCreditCardDetails(bookingId);
     }
 
-    @PostMapping("creditcardpayment")
+    @PostMapping("/creditcardpayment")
     public CreditCardDetails setCreditCardDetails( @RequestBody CreditCardDetails ccdetails) {
         CreditCardDetails savedCardDetails = service.setCreditCardDetails(ccdetails);
         System.out.println("Credit Card Details Saved Successfully");

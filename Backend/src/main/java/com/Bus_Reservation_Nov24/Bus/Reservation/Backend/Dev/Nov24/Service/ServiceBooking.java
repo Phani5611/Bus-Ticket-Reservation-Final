@@ -2,7 +2,7 @@ package com.Bus_Reservation_Nov24.Bus.Reservation.Backend.Dev.Nov24.Service;
 
 
 import com.Bus_Reservation_Nov24.Bus.Reservation.Backend.Dev.Nov24.Model.BookingDetails;
-import com.Bus_Reservation_Nov24.Bus.Reservation.Backend.Dev.Nov24.Model.User;
+import com.Bus_Reservation_Nov24.Bus.Reservation.Backend.Dev.Nov24.Model.Users;
 import com.Bus_Reservation_Nov24.Bus.Reservation.Backend.Dev.Nov24.Repository.BusBookingRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,7 +14,7 @@ import java.util.Optional;
 @Service
 public class ServiceBooking {
     @Autowired
-    private User user;
+    private Users user;
     @Autowired
     private BusBookingRepo BookingDetailsRepo;
 
