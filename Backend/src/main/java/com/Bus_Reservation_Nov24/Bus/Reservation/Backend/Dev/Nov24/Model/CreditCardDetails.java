@@ -21,7 +21,7 @@ public class CreditCardDetails {
     //Get hold of the booking id from url
     private long bookingId;
     private long card_number;
-    private int exp_date;
+    private String exp_date;
     private int cvv;
     private String card_owner_name;
 }

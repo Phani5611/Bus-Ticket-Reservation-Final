@@ -46,7 +46,14 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http.cors().and().authorizeHttpRequests().requestMatchers("/login","/booking","/booking/{bookingId}","/register","/creditcardpayment","/debitcardpayment","creditcardpayment/{bookingId}","cancel/{bookingId}","/css/**", "/js/**").permitAll().anyRequest().authenticated();
+        http
+                .cors()
+                .and()
+                .authorizeHttpRequests()
+                .requestMatchers("/login","/register","/css/**", "/js/**")
+                .permitAll()
+                .anyRequest()
+                .authenticated();
         //http.formLogin().loginPage("/login").loginProcessingUrl("/login").defaultSuccessUrl("/home",true);
         //http.sessionManagement(session->session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
         http.formLogin().disable();
