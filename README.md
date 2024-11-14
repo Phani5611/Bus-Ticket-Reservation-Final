@@ -2,7 +2,7 @@
 2. Built the front-end interface using HTML, CSS, Javascript and Tailwind CSS while the back-end API which handles all the HTTP request is built using Java and Spring Boot Framework.
 3. To store the data - PostgreSQL.
 
-Video Link - https://drive.google.com/file/d/1VZcbgm-Chlalk1OPDAt48Ha4SSFc6awD/view?usp=sharing
+Video Link - https://drive.google.com/file/d/1HY55cm-LpBKpKGjEpAN5Umdcs8ZD07gd/view?usp=sharinghttps://drive.google.com/file/d/1HY55cm-LpBKpKGjEpAN5Umdcs8ZD07gd/view?usp=sharing
 
 Highlights of the project :
 --------------------------------
