@@ -60,14 +60,14 @@
 │   │   │   │                   └───Backend
 │   │   │   │                       └───Dev
 │   │   │   │                           └───Nov24
-│   │   │   │                               ├───APIResponse                             # For handling status code's and error messages.
-│   │   │   │                               ├───Config                                  # All Security & Cors Configuration
-│   │   │   │                               ├───Controllers                             # Contains URL / HTTP request end point mappings
-│   │   │   │                               ├───Exceptions                              # Custom Exceptions
-│   │   │   │                               ├───InputValidation                         # Separate Class for Input Field Validations
-│   │   │   │                               ├───Model                                   # Contains entities of the project
-│   │   │   │                               ├───Repository                              # Database layer
-│   │   │   │                               └───Service                                 # Cotains all the business logic
+│   │   │   │                               ├───APIResponse                  # For handling status code's and error messages.
+│   │   │   │                               ├───Config                       # All Security & Cors Configuration
+│   │   │   │                               ├───Controllers                  # Contains URL / HTTP request end point mappings
+│   │   │   │                               ├───Exceptions                   # Custom Exceptions
+│   │   │   │                               ├───InputValidation              # Separate Class for Input Field Validations
+│   │   │   │                               ├───Model                        # Contains entities of the project
+│   │   │   │                               ├───Repository                   # Database layer
+│   │   │   │                               └───Service                      # Cotains all the business logic
 │   │   │   └───resources
 │   │   │       ├───static
 │   │   │       └───templates
@@ -93,11 +93,13 @@
 ```
 
 ## Project Structure Overview
-- ApiResponse - Classes Responsible for handling status code's and error messages of the requests.
+- APIResponse - Classes Responsible for handling status code's and error messages of the requests.
 
 - Config - Contains all the security and other configurations.
 
-- Exceptions - Contains custom exceptions for handling.
+- Exceptions - Contains custom exceptions for handling error's.
+
+- InputValidation - Responsible for validating input correctness.
 
 - Controller - Handles all the HTTP requests from frontend or client.
 
@@ -169,14 +171,14 @@
 
 
 ## HTTP Status Code's Used
-| Status Code     | Message | Description                                                     |
-|-----------------|---------|-----------------------------------------------------------------|
-| 200    | OK      | SuccessCRUD operation for Booking / Registration / Post Request |
-| 201 | CREATED | Booking Created                                                 |
-|400| BAD REQUEST| Missing Input Fields                                            |
-|404|NOT FOUND| Booking / User Not Found                                        |
-| 409 |CONFLICT| User Already Exsist                                             |
-|500|INTERNAL SERVER ERROR | Unexpected error on server side                                 |
+| Status Code     | Message | Description                                                      |
+|-----------------|---------|------------------------------------------------------------------|
+| 200    | OK      | Success CRUD Operation for Booking / Registration / Post Request |
+| 201 | CREATED | Booking Created                                                  |
+|400| BAD REQUEST| Missing Input Fields                                             |
+|404|NOT FOUND| Booking / User Not Found                                         |
+| 409 |CONFLICT| User Already Exsist                                              |
+|500|INTERNAL SERVER ERROR | Unexpected Error on Server Side                                  |
 
 ## HTTP Requests & URL's End Points
 
@@ -186,7 +188,7 @@
 |--------------|---------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------|
 | `GET`       | /booking/bookingId  (or) register/{username} (or) /creditcardpayment/{bookingId} (or) /debitcardpayment/{bookingId} | Gives details by ID for booking, users, credit card details, debit card details |
 | `GET`         | /booking                                                                                                            | Gives all the booking present in DB.                                            |
-| `POST`      | /booking (or) /debitcardpayment (or) /creditcardpayment (or) /login                              | Creates a booking, saves booking, card details.                                 |
+| `POST`      | /booking (or) /debitcardpayment (or) /creditcardpayment (or) /login                              | Creates a booking & save's booking and card details.                            |
 | `DELETE`         |  /cancel/{bookingId}                                                                                                      | Delete a specific booking using  booking ID.                                    |
 
 
