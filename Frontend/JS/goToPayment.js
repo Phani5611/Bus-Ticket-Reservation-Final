@@ -13,14 +13,12 @@ document.getElementById('bookingForm').addEventListener('submit', function(event
     const formData = {
         name: document.getElementById('name').value,
         phone: document.getElementById('phone').value,
-        boarding_code: boardingSelect.value,  // The value of the selected boarding option
-        boarding: boardingOption.text,       // The text of the selected boarding option
-        destination_code: destinationSelect.value, // The value of the selected destination option
-        destination: destinationOption.text,  // The text of the selected destination option
-        dateandtime: document.getElementById('date').value,
+        boarding_code: boardingSelect.value,
+        boarding: boardingOption.text,
+        destination_code: destinationSelect.value,
+        destination: destinationOption.text,
+        dateAndTime: document.getElementById('dateTimeInput').value,
     };
-
-  
     fetch('http://localhost:8080/booking', {
         method: 'POST',
         headers: {
@@ -32,17 +30,23 @@ document.getElementById('bookingForm').addEventListener('submit', function(event
         return response.json(); // Parse the response as JSON
     })
     .then(data => {
-        console.log('Backend Response:', data); 
     
-        if (data) {
-            const bookingId = data.bookingId;  
-            console.log('Booking ID:', bookingId); 
-            window.location.href = `PaymentOptionsPage.html?bookingId=${bookingId}`;
-        } else {
-            console.error('Booking failed:', data);
-        }
+      if (data.statusCode === 201) {
+          const bookingId = data.bookingId;
+          if (!bookingId || isNaN(bookingId)) {
+              console.error('Invalid bookingId:', bookingId);
+              alert('Invalid booking ID. Please try again.');
+              return;  // Prevent redirect if bookingId is invalid
+          }
+          console.log('Booking ID:', bookingId, 'Message:', data.message);
+          window.location.href = `PaymentOptionsPage.html?bookingId=${bookingId}`;
+      } else {
+          console.error('Booking failed:', data.message);
+      }
+
     })
     .catch(error => {
         console.error('Error:', error);
+        alert('An error occurred in saving booking details. Please try again later.');
     });
 });    

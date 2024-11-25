@@ -14,13 +14,13 @@
 
 - Passwords are encrpyted using B-Crypt library ( strength 12 rounds ).
 
-- Can handle all the CRUD operation features i.e user registration, booking ticket, get ticket details, cancel the ticket .
+- Can handle all the CRUD operation features i.e user registration, booking ticket, get ticket details, cancel the ticket.
 
 - Bus fare is calculated dynamically by using per KM distance price.
 
 - Accepts cross-origin HTTP requests.
 
-## Table of Contents
+## Table of Content
 
 - [Software's ](#softwares-needed)
 - [Project Structure](#project-structure)
@@ -28,6 +28,8 @@
 - [Installation Guide](#steps-to-install-the-project)
 - [Dependencies](#dependencies-needed)
 - [How to run ?](#how-to-run--test-the-project-)
+- [HTTP Status Code's Used](#http-status-codes-used)
+- [HTTP Request and URL end points](#http-requests--urls-end-points)
 - [JSON test cases](#json-data-as-test-cases)
 - [Contact](#contact)
 
@@ -42,7 +44,7 @@
 
 ## Project Structure
 
-```
+```                             
 ├───.idea
 ├───Backend
 │   ├───.idea
@@ -58,11 +60,14 @@
 │   │   │   │                   └───Backend
 │   │   │   │                       └───Dev
 │   │   │   │                           └───Nov24
-│   │   │   │                               ├───Config                       # All Security Configuration
-│   │   │   │                               ├───Controllers                  # Contains URL / HTTP request end point mappings
-│   │   │   │                               ├───Model                        # Contains entities of the project
-│   │   │   │                               ├───Repository                   # Database layer
-│   │   │   │                               └───Service                      # Cotains all the business logic
+│   │   │   │                               ├───APIResponse                             # For handling status code's and error messages.
+│   │   │   │                               ├───Config                                  # All Security & Cors Configuration
+│   │   │   │                               ├───Controllers                             # Contains URL / HTTP request end point mappings
+│   │   │   │                               ├───Exceptions                              # Custom Exceptions
+│   │   │   │                               ├───InputValidation                         # Separate Class for Input Field Validations
+│   │   │   │                               ├───Model                                   # Contains entities of the project
+│   │   │   │                               ├───Repository                              # Database layer
+│   │   │   │                               └───Service                                 # Cotains all the business logic
 │   │   │   └───resources
 │   │   │       ├───static
 │   │   │       └───templates
@@ -77,31 +82,22 @@
 │   │                                   └───Nov24
 │   └───target
 │       ├───classes
-│       │   └───com
-│       │       └───Bus_Reservation_Nov24
-│       │           └───Bus
-│       │               └───Reservation
-│       │                   └───Backend
-│       │                       └───Dev
-│       │                           └───Nov24
-│       │                               ├───Config                      
-│       │                               ├───Controllers                 
-│       │                               ├───Model                      
-│       │                               ├───Repository                  
-│       │                               └───Service                    
 │       └───generated-sources
 │           └───annotations
-└───Frontend                              # Frontend Folder
-    ├───Assests                           # Contains all the images for website
-    ├───CSS                               # CSS Styling
-    ├───HTML                              # HTML code package
-    └───JS                                # Javascript source code for connecting frontend and backend
+└───Frontend                                       # Frontend Folder
+    ├───Assests                                    # Contains all the images for website
+    ├───CSS                                        # CSS Styling
+    ├───HTML                                       # HTML code package
+    └───JS                                         # Javascript source code for connecting frontend and backend
 
 ```
 
 ## Project Structure Overview
- 
+- ApiResponse - Classes Responsible for handling status code's and error messages of the requests.
+
 - Config - Contains all the security and other configurations.
+
+- Exceptions - Contains custom exceptions for handling.
 
 - Controller - Handles all the HTTP requests from frontend or client.
 
@@ -171,6 +167,31 @@
 ###### 5. Passenger Details
 - select * from passenger_details;
 
+
+## HTTP Status Code's Used
+| Status Code     | Message | Description                                                     |
+|-----------------|---------|-----------------------------------------------------------------|
+| 200    | OK      | SuccessCRUD operation for Booking / Registration / Post Request |
+| 201 | CREATED | Booking Created                                                 |
+|400| BAD REQUEST| Missing Input Fields                                            |
+|404|NOT FOUND| Booking / User Not Found                                        |
+| 409 |CONFLICT| User Already Exsist                                             |
+|500|INTERNAL SERVER ERROR | Unexpected error on server side                                 |
+
+## HTTP Requests & URL's End Points
+
+**Note - Some test cases are given below for tesing HTTP requests**
+
+| HTTP Request | API End Point                                                                                                       | Description                                                                     |
+|--------------|---------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------|
+| `GET`       | /booking/bookingId  (or) register/{username} (or) /creditcardpayment/{bookingId} (or) /debitcardpayment/{bookingId} | Gives details by ID for booking, users, credit card details, debit card details |
+| `GET`         | /booking                                                                                                            | Gives all the booking present in DB.                                            |
+| `POST`      | /booking (or) /debitcardpayment (or) /creditcardpayment (or) /login                              | Creates a booking, saves booking, card details.                                 |
+| `DELETE`         |  /cancel/{bookingId}                                                                                                      | Delete a specific booking using  booking ID.                                    |
+
+
+
+
 ## JSON Data as Test Cases
 
 ##### Passenger Registration
@@ -192,8 +213,8 @@
 "boarding_code" : 01,
 "boarding" : "Hyderabad - DSNR",
 "destination_code" : 02,
-"destination" : "Hyderabad - SECUNDERABAD"
-"dateAndTime" :2024-11-21T14:30:00
+"destination" : "Hyderabad - SECUNDERABAD",
+"dateAndTime" :"2024-11-21T14:30:00"
 }
 ````
 

@@ -1,43 +1,38 @@
-// Extract the bookingId from the URL query string
-const urlParams = new URLSearchParams(window.location.search);
-const bookingId = urlParams.get('bookingId');
-if (bookingId) {
-    
-    document.getElementById('creditCardButton').addEventListener('click', function() {
-        window.location.href = `http://127.0.0.1:5500/HTML/creditCardPayment.html?bookingId=${bookingId}`;
-    });
-}
-if (bookingId) {
-    
-    document.getElementById('debitCardButton').addEventListener('click', function() {
-        window.location.href = `http://127.0.0.1:5500/HTML/debitCardPayment.html?bookingId=${bookingId}`;
-    });
- 
-}
-
-
 window.onload = function() {
     // Extract the bookingId from the URL query string
     const urlParams = new URLSearchParams(window.location.search);
-    const bookingId = urlParams.get('bookingId');  
-    
+    const bookingId = urlParams.get('bookingId');
+
+    // Handle the credit and debit card button click events
     if (bookingId) {
-        // Make a GET request to the backend to fetch the booking details by bookingId
+        document.getElementById('creditCardButton').addEventListener('click', function() {
+            window.location.href = `creditCardPayment.html?bookingId=${bookingId}`;
+        });
+
+        document.getElementById('debitCardButton').addEventListener('click', function() {
+            window.location.href = `debitCardPayment.html?bookingId=${bookingId}`;
+        });
+
+        // Fetch the booking details from the backend using the bookingId
         fetch(`http://localhost:8080/booking/${bookingId}`)
             .then(response => {
                 if (!response.ok) {
                     throw new Error('Booking not found');
                 }
-                return response.json();
+                return response.json();  // Parse the response as JSON
             })
             .then(data => {
-                console.log('Booking details:', data); 
 
-                // Retrieve the fare from the response
-                const fare = data.fare;
 
-                // Display the fare on the page
-                document.getElementById('fared').innerText = `${fare} `;
+                // Retrieve the fare from the response (check if 'fare' is available in the response object)
+                if (data && data.fare) {
+                    const fare = data.fare;
+                    // Display the fare on the page
+                    document.getElementById('fared').innerText = `${fare}`;
+                } else {
+                    console.error('Fare not found in the response.');
+                    alert('Fare information is missing.');
+                }
             })
             .catch(error => {
                 console.error('Error fetching booking details:', error);
@@ -48,5 +43,3 @@ window.onload = function() {
         alert('Invalid booking ID');
     }
 };
-
-

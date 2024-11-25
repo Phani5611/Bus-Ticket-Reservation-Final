@@ -1,6 +1,8 @@
+
 package com.Bus_Reservation_Nov24.Bus.Reservation.Backend.Dev.Nov24.Service;
 
 
+import com.Bus_Reservation_Nov24.Bus.Reservation.Backend.Dev.Nov24.APIResponse.ApiStatusResponse;
 import com.Bus_Reservation_Nov24.Bus.Reservation.Backend.Dev.Nov24.Model.Users;
 import com.Bus_Reservation_Nov24.Bus.Reservation.Backend.Dev.Nov24.Repository.UserRegistrationRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,18 +25,18 @@ public class ServiceRegister {
        return repo.findByUsername(username);
    }
 
-   public ResponseEntity<Void> setUserDetails(Users user){
+   public ApiStatusResponse setUserDetails(Users user){
        try{
            Users existingUser = repo.findByUsername(user.getUsername());
            Users existingEmail = repo.findByEmail(user.getEmail());
            if (existingUser != null && existingEmail!=null) {
                // User already exists, return a conflict response
-               return ResponseEntity.status(HttpStatus.CONFLICT).build();
+               return new ApiStatusResponse(409,"User Already Registered");
+
            }
            else if(existingEmail !=null){
-               return  ResponseEntity.status(HttpStatus.CONFLICT).build();
+              return  new ApiStatusResponse(409,"User Email Already Registered");
            }
-
        }
        catch (Exception e){
            System.out.println("Exception -"+e);
@@ -42,6 +44,6 @@ public class ServiceRegister {
        user.setPassword(encoder.encode(user.getPassword()));
        user.setCpassword(encoder.encode(user.getCpassword()));
        repo.save(user);
-       return ResponseEntity.status(HttpStatus.CREATED).build();
+       return new ApiStatusResponse(200,"User Registration Success");
    }
 }

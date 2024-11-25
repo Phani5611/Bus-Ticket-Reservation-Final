@@ -25,7 +25,6 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-@CrossOrigin(origins = "http://127.0.0.1:5500")
 @Configuration
 //Breaks the default security filter chain
 @EnableWebSecurity
@@ -62,30 +61,6 @@ public class SecurityConfig {
        return http.build();
     }
 
-
-//    //Default Login Page by Spring Security
-//public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-//         return http
-//                .csrf(customizer->customizer.disable())
-//                 //.authorizeHttpRequests().antMatchers("/login", "/css/**", "/js/**").permitAll().anyRequest().authenticated()
-//                 //Security is applied and access is denied without password and username
-//                 .authorizeHttpRequests(request->request.anyRequest().authenticated())
-//
-//                //Enable the form login
-//                .formLogin(Customizer.withDefaults())
-//
-//                //For REST Data access
-//                //This also gives an ALERT BOX if you disable the formLogin
-//                 .httpBasic(Customizer.withDefaults())
-//
-//                //Making HTTP stateless(Everytime a new session id is generated ) because we are disabling the CSRF Token
-//                .sessionManagement(session->session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-//
-//                //Return the SecurityFilterChain Object
-//                .build();
-//
-//    }
-
         //For making users authenicated from DB we use custom Authenication Provider Filter instead of Default Auth Provider
         @Bean
         public AuthenticationProvider authenticationProvider() {
@@ -98,7 +73,7 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(Collections.singletonList("http://127.0.0.1:5500"));  // Allow your frontend origin
+        configuration.setAllowedOrigins(Collections.singletonList("http://localhost:63342"));  // Allow your frontend origin
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         configuration.setAllowedHeaders(Arrays.asList("Content-Type", "Authorization"));
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();

@@ -8,7 +8,7 @@ function fetchBookingId() {
            if (!response.ok) {
                throw new Error("Booking not found");
            }
-           return response.json();  // Parse the response as JSON
+           return response.json();
        })
        .then(data => {
            console.log("Fetched booking data:", data);  // Debugging line to see the response

@@ -5,16 +5,22 @@ document.getElementById('FormCreditCardDetails').addEventListener('submit', func
     const urlParams = new URLSearchParams(window.location.search);
     const bookingId = urlParams.get('bookingId');
 
-   
     var formData = new FormData(this);
 
-   
+    // Append bookingId to formData if it's available
     if (bookingId) {
         formData.append('bookingId', bookingId);
     } else {
         alert("Booking ID is missing.");
-        return; 
+        return; // Prevent further processing if bookingId is missing
     }
+
+    // Get the current date and time
+    const currentDate = new Date();
+    const formattedDateTime = currentDate.toISOString();  // Format the date and time as ISO 8601 string
+
+    // Append the current date and time to formData
+    formData.append('dateAndTime', formattedDateTime);
 
     // Convert formData to a plain JavaScript object
     var dataObject = {};
@@ -33,25 +39,25 @@ document.getElementById('FormCreditCardDetails').addEventListener('submit', func
         },
         body: jsonData
     })
-    .then(response => {
-        console.log('Response Status:', response.status);
-        
-        switch (response.status) {
-            case 202: // Payment successful
-                alert('Payment Successful!');
-                
-                window.location.href = `QRcode.html?bookingId=${bookingId}`;
+    .then(response => response.json()) // Parse the response as JSON
+    .then(data => {
+        // Handle the response status code
+        switch (data.statusCode) {
+            case 200: // Credit Card details saved successfully
+                alert(data.message); // Display the message from the backend
+                // Optionally, redirect to a new page using the bookingId
+                window.location.href = `QRcode.html?bookingId=${data.bookingId}`;
                 break;
 
             case 400: // Bad Request
                 alert('Bad Request. Please check your payment details and try again.');
                 break;
 
-            case 401: // Unauthorized 
+            case 401: // Unauthorized
                 alert('Unauthorized. Please log in and try again.');
                 break;
 
-            case 404: // Not Found 
+            case 404: // Not Found
                 alert('Endpoint not found. Please try again later.');
                 break;
 
@@ -64,7 +70,7 @@ document.getElementById('FormCreditCardDetails').addEventListener('submit', func
                 break;
 
             default: // Handle any other unexpected errors
-                alert('Unexpected error: ' + response.statusText);
+                alert('Unexpected error: ' + data.message); // Use the message from the backend
                 break;
         }
     })

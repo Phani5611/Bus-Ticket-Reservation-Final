@@ -9,6 +9,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDateTime;
+
 @Data
 @Entity
 @AllArgsConstructor
@@ -24,4 +26,5 @@ public class CreditCardDetails {
     private String exp_date;
     private int cvv;
     private String card_owner_name;
+    private LocalDateTime dateAndTime;
 }

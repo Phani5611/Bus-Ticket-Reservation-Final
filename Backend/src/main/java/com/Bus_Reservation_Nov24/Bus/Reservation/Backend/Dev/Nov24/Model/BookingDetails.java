@@ -6,6 +6,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDateTime;
+
 @Data
 @Entity
 @NoArgsConstructor
@@ -15,7 +17,7 @@ import org.springframework.stereotype.Component;
 public class BookingDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int bookingId;
+    private long bookingId;
     private String name;
     private long phone;
     @Column(name = "boarding_code")
@@ -24,6 +26,6 @@ public class BookingDetails {
     @Column(name = "destination_code")
     private int destination_code;
     private String destination;
-    private String dateandtime;
+    private LocalDateTime dateAndTime;
     private int fare;
 }

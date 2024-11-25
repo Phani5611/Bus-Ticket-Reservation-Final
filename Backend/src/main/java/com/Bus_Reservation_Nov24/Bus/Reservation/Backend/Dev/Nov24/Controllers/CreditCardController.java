@@ -1,17 +1,17 @@
 package com.Bus_Reservation_Nov24.Bus.Reservation.Backend.Dev.Nov24.Controllers;
 
 
+import com.Bus_Reservation_Nov24.Bus.Reservation.Backend.Dev.Nov24.APIResponse.ApiResponse;
 import com.Bus_Reservation_Nov24.Bus.Reservation.Backend.Dev.Nov24.Model.BookingDetails;
 import com.Bus_Reservation_Nov24.Bus.Reservation.Backend.Dev.Nov24.Model.CreditCardDetails;
 import com.Bus_Reservation_Nov24.Bus.Reservation.Backend.Dev.Nov24.Service.ServiceCreditCard;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.Optional;
 
-@CrossOrigin(origins = "http://127.0.0.1:5500")
 @RestController
 public class CreditCardController {
 
@@ -25,28 +25,19 @@ public class CreditCardController {
     @Autowired
     private BookingDetails details;
 
+    // Fetch Credit Card Payment Details
     @GetMapping("/creditcardpayment/{bookingId}")
-    public Optional<CreditCardDetails> getCreditCardDetails(@PathVariable long bookingId){
-        return service.getCreditCardDetails(bookingId);
+    public ResponseEntity<CreditCardDetails> getCreditCardDetails(@PathVariable long bookingId){
+        return service.getCreditCardDetails(bookingId)
+                .map(details -> new ResponseEntity<>(details, HttpStatus.OK)) // Found
+                .orElseGet(() -> new ResponseEntity<>(null,HttpStatus.NOT_FOUND)); // Not found
     }
 
+    // Post mapper for saving credit card details
     @PostMapping("/creditcardpayment")
-    public ResponseEntity<Void> setCreditCardDetails(@RequestBody CreditCardDetails ccdetails) {
-        ResponseEntity<Void> savedCardDetails = service.setCreditCardDetails(ccdetails);
-        System.out.println("Credit Card Details Saved Successfully");
-        return savedCardDetails;
+    public ResponseEntity<ApiResponse> setCreditCardDetails(@RequestBody CreditCardDetails ccdetails) {
+        ApiResponse responseCreditCard = service.setCreditCardDetails(ccdetails);
+        return new ResponseEntity<>(responseCreditCard, HttpStatus.valueOf(responseCreditCard.getStatusCode()));
     }
 
-    //This code is for handling Non-JSON data
-
-//   @PostMapping("ccPayment")
-//    public ResponseEntity<String> handlePayment(
-//            @RequestParam("card_number") String cardNumber,
-//            @RequestParam("exp_date") String expDate,
-//            @RequestParam("cvv") String cvv,
-//            @RequestParam("card_owner_name") String cardOwnerName) {
-        // Handle the payment logic here
-//        service.setCreditCardDetails(ccdetails);
-//        return ResponseEntity.ok("Payment processed");
-//    }
 }

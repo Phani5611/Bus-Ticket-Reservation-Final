@@ -12,16 +12,12 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@CrossOrigin(origins = "http://127.0.0.1:5500")  // Allow requests from frontend
+ // Allow requests from frontend
 public class AuthController {
 
     @Autowired
     private AuthenticationProvider authenticationProvider;
 
-     @PostMapping("greet2")
-     public String greet2(){
-         return "Hi in login controller";
-     }
 
 
     @PostMapping("/login")

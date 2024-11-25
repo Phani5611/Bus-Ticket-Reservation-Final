@@ -1,58 +1,93 @@
 package com.Bus_Reservation_Nov24.Bus.Reservation.Backend.Dev.Nov24.Service;
 
 
+import com.Bus_Reservation_Nov24.Bus.Reservation.Backend.Dev.Nov24.Exceptions.BookingNotFoundException;
+import com.Bus_Reservation_Nov24.Bus.Reservation.Backend.Dev.Nov24.Exceptions.InvalidInputException;
+import com.Bus_Reservation_Nov24.Bus.Reservation.Backend.Dev.Nov24.InputValidation.InputValidation;
+import com.Bus_Reservation_Nov24.Bus.Reservation.Backend.Dev.Nov24.APIResponse.ApiResponse;
 import com.Bus_Reservation_Nov24.Bus.Reservation.Backend.Dev.Nov24.Model.BookingDetails;
 import com.Bus_Reservation_Nov24.Bus.Reservation.Backend.Dev.Nov24.Model.Users;
 import com.Bus_Reservation_Nov24.Bus.Reservation.Backend.Dev.Nov24.Repository.BusBookingRepo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.List;
 import java.util.Optional;
 
 @Service
 public class ServiceBooking {
+
     @Autowired
     private Users user;
+
+
     @Autowired
     private BusBookingRepo BookingDetailsRepo;
 
+    @Autowired
+    private InputValidation validation;
 
 
-    public BookingDetails setBookingDetails(BookingDetails details) {
-         details.setFare(Math.abs(details.getBoarding_code()-details.getDestination_code()) * 10);
-        BookingDetailsRepo.save(details);
-        return details;
+    // Fetch All Bookings Service
+    public List<BookingDetails> getAllBookingDetails() {
+        return  BookingDetailsRepo.findAll();
+    }
+
+    //Fetching Details by ID from DB
+    public Optional<BookingDetails> getBookingDetails(long bookingId) {
+        Optional<BookingDetails> savedBookingDetails = BookingDetailsRepo.findById(bookingId);
+        if (savedBookingDetails.isPresent()) {
+            return savedBookingDetails;
+        }
+        return savedBookingDetails;
     }
 
 
-    //Getting Details by Id from DB
-    public ResponseEntity<BookingDetails> getBookingDetails(long bookingId) {
+    // Post Mapping Booking Service - Saving Booking Details
+    // 201 - Booking Created, 400 - Bad Request for Input Fields, 500 - Internal Server Error
+    public ApiResponse setBookingDetails(BookingDetails details) {
+       String validInput = validation.inputValidation(details);
+       try{
+           //Check for valid inputs
+           if (!"Valid".equals(validInput)){
+               throw new InvalidInputException(validInput);
+           }
+           // Fare calculation based on station codes
+           details.setFare(Math.abs(details.getBoarding_code()-details.getDestination_code()) * 10);
+           // Success in saving booking details
+           BookingDetailsRepo.save(details);
+           return  new ApiResponse(201,"Booking Successful",details.getBookingId());
+       }
+       catch (InvalidInputException invalidInputException){
+           return new ApiResponse(400,invalidInputException.getMessage(),details.getBookingId());
+       }
 
-        Optional<BookingDetails> savedBookingDetails =  BookingDetailsRepo.findById(bookingId);
-        if(savedBookingDetails.isPresent()){
-            return ResponseEntity.ok(savedBookingDetails.get());
-        }
-        else{
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-        }
+       catch (Exception e){
+           return  new ApiResponse(500,"Unexpected error in booking block of service",details.getBookingId()); // Internal Server Error
+       }
     }
 
 
-    public ResponseEntity<Void> cancelTicket(long bookingId) {
+
+    // Cancel Booking Service
+    // 200 - Booking found and deleted, 404 - Booking not found to delete, 500-Internal server error
+    public ApiResponse cancelTicket(long bookingId) {
         try{
+            // Check for booking present or not.
             if(BookingDetailsRepo.findById(bookingId).isPresent()){
                 BookingDetailsRepo.deleteById(bookingId);
-                System.out.println("Booking Deleted");
+                return  new ApiResponse(200,"Booking is deleted",bookingId);
+            }
+            else{
+                throw new BookingNotFoundException("Booking - "+bookingId + " is not found to delete");
             }
         }
-        catch (Exception e){
-            System.out.println("Exception in deleteing the booking details in service layer"+e);
+        catch (BookingNotFoundException bookingNotFoundException){
+            return new ApiResponse(404,bookingNotFoundException.getMessage(),bookingId);
         }
-        return  ResponseEntity.status(HttpStatus.OK).build();
-
+        catch (Exception e){
+           return new ApiResponse(500,"Unexpected error in delete block of service",bookingId);
+        }
     }
+
 }
