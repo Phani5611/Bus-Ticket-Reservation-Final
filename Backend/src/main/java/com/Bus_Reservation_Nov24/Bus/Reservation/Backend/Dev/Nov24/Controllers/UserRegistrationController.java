@@ -4,10 +4,8 @@ package com.Bus_Reservation_Nov24.Bus.Reservation.Backend.Dev.Nov24.Controllers;
 
 import com.Bus_Reservation_Nov24.Bus.Reservation.Backend.Dev.Nov24.APIResponse.ApiStatusResponse;
 import com.Bus_Reservation_Nov24.Bus.Reservation.Backend.Dev.Nov24.Model.Users;
-import com.Bus_Reservation_Nov24.Bus.Reservation.Backend.Dev.Nov24.Service.ServiceRegister;
-import org.apache.catalina.User;
+import com.Bus_Reservation_Nov24.Bus.Reservation.Backend.Dev.Nov24.Service.RegistrationService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 public class UserRegistrationController {
 
     @Autowired
-    private ServiceRegister service;
+    private RegistrationService service;
 
 
     //Gets the passengers details present in db

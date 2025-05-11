@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class ServiceBooking {
+public class BookingService {
 
     @Autowired
     private Users user;

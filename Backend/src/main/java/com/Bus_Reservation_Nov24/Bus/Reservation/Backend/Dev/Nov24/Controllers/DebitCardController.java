@@ -3,7 +3,7 @@ package com.Bus_Reservation_Nov24.Bus.Reservation.Backend.Dev.Nov24.Controllers;
 
 import com.Bus_Reservation_Nov24.Bus.Reservation.Backend.Dev.Nov24.APIResponse.ApiResponse;
 import com.Bus_Reservation_Nov24.Bus.Reservation.Backend.Dev.Nov24.Model.DebitCardDetails;
-import com.Bus_Reservation_Nov24.Bus.Reservation.Backend.Dev.Nov24.Service.ServiceDebitCard;
+import com.Bus_Reservation_Nov24.Bus.Reservation.Backend.Dev.Nov24.Service.DebitCardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
@@ -19,7 +19,7 @@ public class DebitCardController {
 
 
         @Autowired
-        private ServiceDebitCard service;
+        private DebitCardService service;
 
         // Fetch Mapper using ID - Debit Card Details
         @GetMapping("/debitcardpayment/{bookingId}")

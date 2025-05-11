@@ -2,20 +2,15 @@ package com.Bus_Reservation_Nov24.Bus.Reservation.Backend.Dev.Nov24.Service;
 
 import com.Bus_Reservation_Nov24.Bus.Reservation.Backend.Dev.Nov24.APIResponse.ApiResponse;
 import com.Bus_Reservation_Nov24.Bus.Reservation.Backend.Dev.Nov24.Exceptions.BookingNotFoundException;
-import com.Bus_Reservation_Nov24.Bus.Reservation.Backend.Dev.Nov24.Model.CreditCardDetails;
 import com.Bus_Reservation_Nov24.Bus.Reservation.Backend.Dev.Nov24.Model.DebitCardDetails;
 import com.Bus_Reservation_Nov24.Bus.Reservation.Backend.Dev.Nov24.Repository.DebitCardRepo;
-import org.hibernate.jdbc.Expectation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Optional;
 
 @Service
-public class ServiceDebitCard {
+public class DebitCardService {
 
     @Autowired
     private DebitCardRepo repo;

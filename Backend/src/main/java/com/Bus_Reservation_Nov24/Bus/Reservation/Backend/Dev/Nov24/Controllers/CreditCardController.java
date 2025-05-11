@@ -4,13 +4,11 @@ package com.Bus_Reservation_Nov24.Bus.Reservation.Backend.Dev.Nov24.Controllers;
 import com.Bus_Reservation_Nov24.Bus.Reservation.Backend.Dev.Nov24.APIResponse.ApiResponse;
 import com.Bus_Reservation_Nov24.Bus.Reservation.Backend.Dev.Nov24.Model.BookingDetails;
 import com.Bus_Reservation_Nov24.Bus.Reservation.Backend.Dev.Nov24.Model.CreditCardDetails;
-import com.Bus_Reservation_Nov24.Bus.Reservation.Backend.Dev.Nov24.Service.ServiceCreditCard;
+import com.Bus_Reservation_Nov24.Bus.Reservation.Backend.Dev.Nov24.Service.CreditCardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.Optional;
 
 @RestController
 public class CreditCardController {
@@ -20,7 +18,7 @@ public class CreditCardController {
     private CreditCardDetails ccdetails;
 
     @Autowired
-    private ServiceCreditCard service;
+    private CreditCardService service;
 
     @Autowired
     private BookingDetails details;
