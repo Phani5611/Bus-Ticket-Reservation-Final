@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Debit-card-Payment</title>
+    <link rel="stylesheet" href="debitCardPayment.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <div class="page-header text-center">
+            <h1>Debit Card Payment Gateway</h1>
+        </div>
+        <!-- Credit Card Payment Form - START -->
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12 col-md-6 col-md-offset-4">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <h3 class="text-center">Payment Details</h3>
+                                <div class="inlineimage"> <img class="img-responsive images" src="https://cdn0.iconfinder.com/data/icons/credit-card-debit-card-payment-PNG/128/Mastercard-Curved.png"> <img class="img-responsive images" src="https://cdn0.iconfinder.com/data/icons/credit-card-debit-card-payment-PNG/128/Discover-Curved.png"> <img class="img-responsive images" src="https://cdn0.iconfinder.com/data/icons/credit-card-debit-card-payment-PNG/128/Paypal-Curved.png"> <img class="img-responsive images" src="https://cdn0.iconfinder.com/data/icons/credit-card-debit-card-payment-PNG/128/American-Express-Curved.png"> </div>
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            <form id="debitCardPaymentDetails" action="http://localhost:8080/debitCardPayment" method="post">
+                                 <!--Card Number Input-->
+                                    
+                                        <div class="row">
+                                            <div class="col-xs-12">
+                                                <div class="form-group"> <label>CARD NUMBER</label>
+                                                    <input name="card_number" type="text"  class="form-control" placeholder="Valid Card Number" required/>  </div>
+                                            </div>
+                                        </div>
+                                      
+                            <!--Card Exp Input-->
+                                <div class="row">
+                                    <div class="col-xs-7 col-md-7">
+                                        
+                                        <div class="form-group"> <label><span class="hidden-xs">EXPIRATION</span><span class="visible-xs-inline">EXP</span> DATE</label> <input name="exp_date" type="tel" class="form-control" placeholder="MM / YY" required> </div>
+                                    </div>
+
+
+                                    <!--CVV input-->
+                                    <div class="col-xs-5 col-md-5 pull-right">
+                                        <div class="form-group"> <label>CV CODE</label> <input name="cvv" class="form-control" placeholder="CVC"required /> </div>
+                                    </div>
+                                </div>
+
+
+                                <!--Card Holder name-->
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <div class="form-group"> <label>Card Holder Name</label> <input name="card_owner_name" type="text" class="form-control" placeholder="Card Owner Name" required/> </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="panel-footer">
+                                    <div class="row">
+                                        <div class="col-xs-12"> <button type="submit" class="btn btn-success btn-lg btn-block" required>Confirm Payment</button> </div>
+                                    </div>
+                                </div>
+
+                                
+                            </form>
+                        </div>
+                     
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="debitCardPayment.js"></script>
+</body>
+</html>
