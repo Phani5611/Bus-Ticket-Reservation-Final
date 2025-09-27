@@ -1,8 +1,7 @@
-package com.bus.exceptions.globalexceptionhandler;
+package com.bus.exceptions;
 
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import lombok.*;
-import org.springframework.http.HttpStatus;
 
 import java.time.LocalDateTime;
 @Data

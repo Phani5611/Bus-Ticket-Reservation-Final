@@ -1,8 +1,5 @@
-package com.bus.exceptions.globalexceptionhandler;
+package com.bus.exceptions;
 
-import com.bus.exceptions.BadRequestException;
-import com.bus.exceptions.DuplicateResourceException;
-import com.bus.exceptions.ResourceNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
