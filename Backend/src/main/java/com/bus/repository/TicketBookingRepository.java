@@ -9,6 +9,6 @@ import java.util.UUID;
 
 @Repository
 
-public interface BusBookingRepo extends JpaRepository<BookingDetails, UUID> {
+public interface TicketBookingRepository extends JpaRepository<BookingDetails, UUID> {
 
 }

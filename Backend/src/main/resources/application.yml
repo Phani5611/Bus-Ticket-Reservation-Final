@@ -1,25 +1,29 @@
 spring:
   application:
-    name: Bus-Reservation-Backend-Dev-Nov24
+    name: bus-ticketing-system-api
 
   datasource:
-    url: jdbc:postgresql://localhost:5432/demo
+    url: jdbc:postgresql://localhost:5432/demo?currentSchema=bus_db
     username: postgres
     password: '1234'
     driver-class-name: org.postgresql.Driver
 
 
+  liquibase:
+    change-log: classpath:db/changelog/changelog-master.xml # Path to your master changelog file
+    enabled: true
+    default-schema: bus_db
+
+
   jpa:
     hibernate:
       ddl-auto: none
+      default_schema: bus_db
     show-sql: true
 
 
-  liquibase:
-    change-log: classpath:db/changelog/changelog-master.xml # Path to your master changelog file
-
 springdoc:
   swagger-ui:
-    path: /swagger-ui-custom.html
+    path: /swagger-ui
   api-docs:
     path: /api

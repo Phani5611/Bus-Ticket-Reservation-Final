@@ -2,7 +2,7 @@ package com.bus.service;
 
 import com.bus.model.UserPrincipal;
 import com.bus.model.Users;
-import com.bus.repository.UserRegistrationRepo;
+import com.bus.repository.UserRegistrationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -18,7 +18,7 @@ Which is required for custom Auth Provider.
 public class MyUserDetailsService implements UserDetailsService {
 
     @Autowired
-    private UserRegistrationRepo userRepo;
+    private UserRegistrationRepository userRepo;
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Users user = userRepo.findByUsername(username);

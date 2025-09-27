@@ -1,13 +1,13 @@
 package com.bus.service;
 
 
-import com.bus.exceptions.BookingNotFoundException;
-import com.bus.exceptions.InvalidInputException;
+import com.bus.exceptions.BadRequestException;
+import com.bus.exceptions.ResourceNotFoundException;
 import com.bus.validations.InputValidation;
 import com.bus.apiresponse.ApiResponse;
 import com.bus.model.BookingDetails;
 import com.bus.model.Users;
-import com.bus.repository.BusBookingRepo;
+import com.bus.repository.TicketBookingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,7 +23,7 @@ public class BookingService {
 
 
     @Autowired
-    private BusBookingRepo BookingDetailsRepo;
+    private TicketBookingRepository ticketBookingRepository;
 
     @Autowired
     private InputValidation validation;
@@ -31,16 +31,13 @@ public class BookingService {
 
     // Fetch All Bookings Service
     public List<BookingDetails> getAllBookingDetails() {
-        return  BookingDetailsRepo.findAll();
+        return  ticketBookingRepository.findAll();
     }
 
     //Fetching Details by ID from DB
-    public Optional<BookingDetails> getBookingDetails(UUID bookingId) {
-        Optional<BookingDetails> savedBookingDetails = BookingDetailsRepo.findById(bookingId);
-        if (savedBookingDetails.isPresent()) {
-            return savedBookingDetails;
-        }
-        return savedBookingDetails;
+    public BookingDetails getBookingDetails(UUID bookingId){
+        return ticketBookingRepository.findById(bookingId)
+                .orElseThrow(()->new ResourceNotFoundException("Booking Details Not Found with this BookingId : "+bookingId));
     }
 
 
@@ -51,15 +48,15 @@ public class BookingService {
        try{
            //Check for valid inputs
            if (!"Valid".equals(validInput)){
-               throw new InvalidInputException(validInput);
+               throw new BadRequestException(validInput);
            }
            // Fare calculation based on station codes
            details.setAmount(Math.abs(details.getBoarding_code()-details.getDestination_code()) * 10);
            // Success in saving booking details
-           BookingDetailsRepo.save(details);
+           ticketBookingRepository.save(details);
            return  new ApiResponse(201,"Booking Successful",details.getBookingId());
        }
-       catch (InvalidInputException invalidInputException){
+       catch (BadRequestException invalidInputException){
            return new ApiResponse(400,invalidInputException.getMessage(),details.getBookingId());
        }
 
@@ -70,21 +67,19 @@ public class BookingService {
 
 
 
-    // Cancel Booking Service
-    // 200 - Booking found and deleted, 404 - Booking not found to delete, 500-Internal server error
     public ApiResponse cancelTicket(UUID bookingId) {
         try{
             // Check for booking present or not.
-            if(BookingDetailsRepo.findById(bookingId).isPresent()){
-                BookingDetailsRepo.deleteById(bookingId);
+            if(ticketBookingRepository.findById(bookingId).isPresent()){
+                ticketBookingRepository.deleteById(bookingId);
                 return  new ApiResponse(200,"Booking is deleted",bookingId);
             }
             else{
-                throw new BookingNotFoundException("Booking - "+bookingId + " is not found to delete");
+                throw new ResourceNotFoundException("Booking - "+bookingId + " is not found to delete");
             }
         }
-        catch (BookingNotFoundException bookingNotFoundException){
-            return new ApiResponse(404,bookingNotFoundException.getMessage(),bookingId);
+        catch (ResourceNotFoundException exception){
+            return new ApiResponse(404,exception.getMessage(),bookingId);
         }
         catch (Exception e){
            return new ApiResponse(500,"Unexpected error in delete block of service",bookingId);

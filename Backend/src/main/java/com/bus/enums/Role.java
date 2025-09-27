@@ -2,5 +2,7 @@ package com.bus.enums;
 
 public enum Role {
     USER,
-    ADMIN
+    CLIENT_ADMIN,
+    SYSTEM_ADMIN,
+    SUPER_ADMIN
 }

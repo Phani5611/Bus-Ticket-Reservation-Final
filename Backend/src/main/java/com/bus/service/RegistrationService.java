@@ -4,7 +4,7 @@ package com.bus.service;
 
 import com.bus.apiresponse.ApiStatusResponse;
 import com.bus.model.Users;
-import com.bus.repository.UserRegistrationRepo;
+import com.bus.repository.UserRegistrationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -14,7 +14,7 @@ public class RegistrationService {
 
     // Object of the repository layer
     @Autowired
-    private UserRegistrationRepo repo;
+    private UserRegistrationRepository repo;
 
     @Autowired
     private BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(12);

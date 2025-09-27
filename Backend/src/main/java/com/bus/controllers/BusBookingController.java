@@ -1,6 +1,7 @@
 package com.bus.controllers;
 
 import com.bus.apiresponse.ApiResponse;
+import com.bus.exceptions.ResourceNotFoundException;
 import com.bus.model.BookingDetails;
 import com.bus.service.BookingService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -15,7 +16,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:63342")
+@RequestMapping("/ap1/v1/booking")
 public class BusBookingController {
 
     @Autowired
@@ -30,15 +31,15 @@ public class BusBookingController {
     }
 
     // Fetch Mapper for Booking Details
-    @GetMapping("/booking/{bookingId}")
-    public ResponseEntity<Optional<BookingDetails>> getBookingDetails(@PathVariable UUID bookingId) {
-       Optional<BookingDetails> reponseDetails =  service.getBookingDetails(bookingId);
+    @GetMapping("/{bookingId}")
+    public ResponseEntity<BookingDetails> getBookingDetails(@PathVariable UUID bookingId) throws ResourceNotFoundException {
+       BookingDetails reponseDetails =  service.getBookingDetails(bookingId);
        return  new ResponseEntity<>(reponseDetails, HttpStatus.OK);
     }
 
     // PostMapper for Saving Booking Details
     //@RequestBody helps in getting form data from front-end in JSON format
-    @PostMapping("/booking")
+    @PostMapping
     public ResponseEntity<ApiResponse> setBookingDetails(@RequestBody BookingDetails details) {
       ApiResponse savedDetails = service.setBookingDetails(details);
         System.out.println("Saved Booking Details");
