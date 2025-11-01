@@ -9,7 +9,9 @@ import org.springframework.security.authentication.dao.DaoAuthenticationProvider
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.web.cors.CorsConfiguration;
@@ -32,27 +34,26 @@ public class SecurityConfig {
         return new BCryptPasswordEncoder(12);  // Strength of the hash (12 is recommended)
     }
 
-
-    //We are customizing the secuirty flow by breaking the default filter chain and implementing our own logic
-    //HTTPSecurity returns the object of SecurityFilterChain
-
-
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests(authorize -> authorize
-                        .anyRequest().permitAll() // Disables all authentication for all endpoints
-                )
+                        .requestMatchers(   "/v3/api-docs/**",
+                                "/swagger-ui/**",
+                                "/swagger-ui.html").permitAll()
+                        .anyRequest().authenticated())
                 .csrf(csrf -> csrf.disable())
+                .httpBasic(Customizer.withDefaults())
+                .sessionManagement(session->session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .cors(Customizer.withDefaults());
 
         return http.build();
     }
-        //For making users authenicated from DB we use custom Authenication Provider Filter instead of Default Auth Provider
+        //For making users authenticated from DB we use custom Authentication Provider Filter instead of Default Auth Provider
         @Bean
         public AuthenticationProvider authenticationProvider() {
             DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
-            authenticationProvider.setPasswordEncoder(passwordEncoder());
+            authenticationProvider.setPasswordEncoder(NoOpPasswordEncoder.getInstance());
             authenticationProvider.setUserDetailsService(userDetailsService);
             return authenticationProvider;
         }

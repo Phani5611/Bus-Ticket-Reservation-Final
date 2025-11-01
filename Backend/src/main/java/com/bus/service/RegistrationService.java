@@ -16,8 +16,8 @@ public class RegistrationService {
     @Autowired
     private UserRegistrationRepository repo;
 
-    @Autowired
-    private BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(12);
+    /*@Autowired
+    private BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(12);*/
 
    public Users getUserDetails(String username){
        return repo.findByUsername(username);
@@ -39,8 +39,7 @@ public class RegistrationService {
        catch (Exception e){
            System.out.println("Exception -"+e);
        }
-       user.setPassword(encoder.encode(user.getPassword()));
-       user.setCpassword(encoder.encode(user.getCpassword()));
+       user.setPassword(user.getPassword());
        repo.save(user);
        return new ApiStatusResponse(200,"User Registration Success");
    }

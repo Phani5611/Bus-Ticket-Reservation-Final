@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Generated;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
@@ -23,12 +24,18 @@ public class Users {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
+    @Column(name = "username")
     private String username;
-    private String name;
-    private String email;
-    private String password;
-    private String cpassword;
-    private LocalDateTime createdAt;
-    private Role role;
 
+    @Column(name = "fist_name")
+    private String firstname;
+    @Column(name="last_name")
+    private String lastname;
+    @Column(name = "email")
+    private String email;
+    @Column(name = "password")
+    private String password;
+
+    @CreationTimestamp
+    private LocalDateTime createdAt;
 }
